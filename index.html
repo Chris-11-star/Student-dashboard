@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Productivity Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-light">
+    <div class="container-fluid min-vh-100 d-flex flex-column">
+        <div class="row flex-grow-1 flex-nowrap">
+            <nav id="sidebar" class="col-auto col-md-3 col-lg-2 d-flex flex-column bg-dark text-white p-3">
+                <a href="#"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none fs-4 fw-bold"><span>EduDash</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#overview" class="nav-link active text-white" aria-current="page">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#subjects" class="nav-link text-white-50">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="#assignments" class="nav-link text-white-50">Assignments</a>
+                    </li>
+                    <li>
+                        <a href="#timetable" class="nav-link text-white-50">Timetable</a>
+                    </li>
+                </ul>
+            </nav>
+            <main class="col col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <header
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Student Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <span class="badge bg-primary fs-6 p-2">Academic Term 2026</span>
+                    </div>
+                </header>
+
+                <section id="overview" class="mb-4">
+                    <h2 class="h4 mb-3">Key Metrics</h2>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white border rounded shadow-sm">
+                                <h3 class="h6 text-muted">Current GPA</h3>
+                                <p class="fs-3 fw-bold mb-0">3.8</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white border rounded shadow-sm">
+                                <h3 class="h6 text-muted">Pending Tasks</h3>
+                                <p class="fs-3 fw-bold mb-0" id="pending-tasks-count">0</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white border rounded shadow-sm">
+                                <h3 class="h6 text-muted">Next Deadline</h3>
+                                <p class="fs-3 fw-bold mb-0">Oct 5, 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tasks" class="mb-4">
+                    <h2 class="h4 mb-3">Task Management</h2>
+                    <button type="button" class="btn btn-outline-danger btn-sm m-2" id="reset-storage-btn">Reset All Tasks</button>
+                    <div class="card border-0 shadow-sm p-3 mb-3">
+                        <form id="task-form" class="row g-2 align-items-center" novalidate>
+                            <div class="col-12 col-md-8">
+                                <input type="text" id="task-input" class="form-control" placeholder="Enter new task description..." required>
+                                <div class="invalid-feedback" id="task-input-feedback">
+                                    Please enter a valid task description (minimum 3 characters).
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <button type="submit" class="btn btn-primary w-100">+ Add Task</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row g-2 mb-3 align-items-center">
+                        <div class="col-12 col-md-6">
+                            <div class="btn-group w-100" role="group" id="filter-buttons">
+                                <button type="button" class="btn btn-outline-primary active" data-filter="all">ALL</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="pending">Pending</button>
+                                <button type="button" class="btn btn-outline-primary" data-filter="completed">Completed</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search tasks...">
+                        </div>
+                    </div>
+                    <div class="bg-white p-3 border rounded shadow-sm">
+                        <ul class="list-group" id="task-list">
+                            <!-- Tasks rendered dynamically via JavaScript -->
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="subjects" class="mb-4">
+                    <h2 class="h4 mb-3">Subjects & Coursework</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm h-100 subject-card">
+                                <span class="badge bg-info text-dark mb-2">CS-101</span>
+                                <h5 class="card-title fw-bold">Computer Sience</h5>
+                                <p class="card-text text-muted small">Data Structures, Algorithims & Web Development.</p>
+                                <div class="progress mb-2" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75"></div>
+                                </div>
+                                <small class="text-muted">75% completed</small>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm h-100 subject-card">
+                                <span class="badge bg-info text-dark mb-2">CS-101</span>
+                                <h5 class="card-title fw-bold">Mechanical Engineering</h5>
+                                <p class="card-text text-muted small">Design,analysis and manufacturing or physical systems</p>
+                                <div class="progress mb-2" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80"></div>
+                                </div>
+                                <small class="text-muted">80% completed</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="assignments" class="mb-4">
+                    <h2 class="h4 mb-3">Upcoming Assignments</h2>
+                    <div class="bg-white p-3 border rounded shadow-sm">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                <div>
+                                    <h6 class="mb-0 fw-semibold">Build Responsive CSS Layout</h6>
+                                    <small class="text-muted">Subject: Computer Science</small>
+                                </div>
+                                <span class="badge bg-warning text-dark">Due Oct 5</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                <div>
+                                    <h6 class="mb-0 fw-semibold">Build Engineering System</h6>
+                                    <small class="text-muted">Subject: Mechanical Engineering</small>
+                                </div>
+                                <span class="badge bg-warning text-dark">Due Oct 8</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+                <section id="timetable" class="mb-4">
+                    <h2 class="h4 mb-3">Weekly Timetable</h2>
+                    <div class="bg-white p-4 border rounded shadow-sm">
+                        <table class="table table-bordered table-hover text-center align-middle mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">09:00 AM</td>
+                                    <td><span class="badge bg-info text-dark w-100 p-2">CS-101</span></td>
+                                    <td class="text-muted small">Free Period</td>
+                                    <td><span class="badge bg-info text-dark w-100 p-2">CS-101</span></td>
+                                    <td class="text-muted small">Free Period</td>
+                                    <td><span class="badge bg-secondary w-100 p-2">MATH-202</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">10:00 AM</td>
+                                    <td class="text-muted small">Free Period</td>
+                                    <td><span class="badge bg-info text-dark w-100 p-2">MATH-202</span></td>
+                                    <td class="text-muted small">Free Period</td>
+                                    <td><span class="badge bg-secondary w-100 p-2">MATH-202</span></td>
+                                    <td class="text-muted small">Free Period</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">12:00 PM</td>
+                                    <td class="text-muted small">Lunch</td>
+                                    <td class="text-muted small">Lunch</td>
+                                    <td class="text-muted small">Lunch</td>
+                                    <td class="text-muted small">Lunch</td>
+                                    <td class="text-muted small">Lunch</td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+        <script src="js/app.js"></script>
+</body>
+
+</html>
